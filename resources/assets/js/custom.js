@@ -62,8 +62,10 @@ $( document ).on('click', '.solsoSave', function(e){
 					});
 				}
 
-				
+
 			}
+
+			//$('form.solsoForm').submit();
 		}
 	});
 });

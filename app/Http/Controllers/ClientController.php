@@ -42,6 +42,13 @@ class ClientController extends Controller {
 	/* === C.R.U.D. === */
 	public function store()
 	{
+		$messages = array(
+			'required'	=> 'ฟิลด์นี้ต้องกรอก',
+			'email'		=> 'รูปแบบอีเมล์ไม่ถูกต้อง',
+			'url'		=> 'รูปแบบ url เว็บไซต์ไม่ถูกต้อง'
+		);
+
+
 		$rules = array(
 			'name'     	=> 'required',
 			'country'	=> 'required',
@@ -55,7 +62,7 @@ class ClientController extends Controller {
 			'website'	=> 'url',
 		);
 
-		$validator = Validator::make(Request::all(), $rules);
+		$validator = Validator::make(Request::all(), $rules, $messages);
 
 		if ($validator->passes())
 		{
@@ -74,7 +81,7 @@ class ClientController extends Controller {
 		}else{
 			if( Request::ajax() ) 
 			{
-				return view('clients.create')->withErrors($validator)->withInput(Request::all());				
+				return view('clients.create')->with('input',Request::all())->withErrors($validator);				
 			}
 
 			return 0;
